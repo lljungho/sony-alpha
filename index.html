@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sony alpha 반응형 클론사이트</title>
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+        /* menu mobile btn */
+        let num = 0;
+        $('#mobile-bt').click(function(){
+            if( num == 0 ){
+                num = 1;
+                $('#mobile-bt>li:nth-child(1)').css({'transform':'rotate(45deg)','width':'22.5px'});
+                $('#mobile-bt>li:nth-child(2)').hide();
+                $('#mobile-bt>li:nth-child(3)').css({'transform':'rotate(-45deg)','width':'22.5px'});
+                $('#mobile-bg').stop().animate({'left':'0'},200);
+            }
+            else if( num == 1 ){
+                num = 0;
+                $('#mobile-bt>li:nth-child(1)').css({'transform':'rotate(0deg)','width':'21px'});
+                $('#mobile-bt>li:nth-child(2)').show();
+                $('#mobile-bt>li:nth-child(3)').css({'transform':'rotate(0deg)','width':'21px'});
+                $('#mobile-bg').stop().animate({'left':'-100%'},200);
+            }
+        });
+        /* menu mobile btn end */
+        /* video slide */
+
+        $('#video-slidebt>li').click(function(){
+            video_bt = $(this).index();
+            $('#video-slide').stop().animate({'left':+(video_bt*-100)+'%'},100);
+        });
+
+        $('#video-slidebt>li').click(function(){ //video slide btn
+            $(this).children().attr({'src':'icons/video-slidebt.png'});
+            $(this).siblings().children().attr({'src':'icons/video-slidebt1.png'});
+        });
+        /* video slide end */
+        /* event */
+        $('#event-menu>li').click(function(){
+            $(this).css({'font-weight':'900','color':'#03010f'}).siblings().css({'font-weight':'400','color':'#6f6f75'});
+            $(this).children('.event-menu-bar').css({'width':'100%'}).parents('#event-menu>li').siblings('#event-menu>li').children('.event-menu-bar').css({'width':'0%'});
+        });
+
+        $('#event-menu>li:nth-child(1)').click(function(){
+            $('#event-list').show();
+            $('#seminar-list').hide();
+        });
+        $('#event-menu>li:nth-child(2)').click(function(){
+            $('#event-list').hide();
+            $('#seminar-list').show();
+        });
+        /* event end */
+        /* footer */
+        ft_click = 0;
+        $('#family-site').click(function(){
+            if( ft_click == 0 ){
+                ft_click = 1;
+                $(this).css({'background-color':'#2b2f3a'});
+                $(this).children('img').css({'transform':'rotate(180deg)'});
+            }
+            else if( ft_click == 1 ){
+                ft_click = 0;
+                $(this).css({'background-color':'#6f6f75'});
+                $(this).children('img').css({'transform':'rotate(0deg)'});
+            }
+            $('#ft-family-sitebox').slideToggle(300);
+        });
+
+        /* footer end */
+        /* scroll */
+        $(window).scroll(function(){
+            sc = $(window).scrollTop();
+            $('#sc').text(sc);
+            if( sc >= 100 ){ // header 배경색 변경
+                $('header').css({'background-color':'#000'});
+                $('.header2').css({'background-color':'#000'});
+            }
+            else{
+                $('header').css({'background-color':'transparent'});
+                $('.header2').css({'background-color':'transparent'});
+            }
+            /////////////////////////////////
+            sc_speed = 400;
+            if( sc >= 200 ){ // magazine 보이기
+                $('#magazine>.title').stop().animate({'margin-top':'0','opacity':'1'},sc_speed); // 5 - 0
+                $('#magazine>.subtitle').stop().animate({'margin-top':'10px','opacity':'1'},sc_speed); // 15 - 10
+                $('#magazine-slide').delay(300).stop().animate({'margin-top':'50px','opacity':'1'},sc_speed); // 70 - 50
+            }
+            if( sc < 100 ){
+                $('#magazine>.title').css({'margin-top':'5px','opacity':'0'});
+                $('#magazine>.subtitle').css({'margin-top':'15px','opacity':'0'});
+                $('#magazine-slide').css({'margin-top':'70px','opacity':'0'});
+            }
+            /////////////////////////////////
+            if( sc >= 1000 ){ // video 보이기
+                $('#video-contents>.title').stop().animate({'margin-top':'0','opacity':'1'},sc_speed); // 5 - 0
+                $('#video-contents>.subtitle').stop().animate({'margin-top':'10px','opacity':'0.5'},sc_speed); // 15 - 10
+                $('#video-box').delay(300).stop().animate({'margin-top':'40px','opacity':'1'},sc_speed); // 80 -40
+            }
+            if( sc < 800 ){
+                $('#video-contents>.title').css({'margin-top':'5px','opacity':'0'});
+                $('#video-contents>.subtitle').css({'margin-top':'15px','opacity':'0'});
+                $('#video-box').css({'margin-top':'80px','opacity':'0'});
+            }
+            /////////////////////////////////
+            if( sc >= 1600 ){ // event 보이기
+                $('#event>.title').stop().animate({'margin-top':'0','opacity':'1'},sc_speed); // 5 - 0
+                $('#event>.subtitle').stop().animate({'margin-top':'15px','opacity':'0.5'},sc_speed); // 20 - 15
+                $('#event-menu').delay(300).stop().animate({'margin-top':'50px','opacity':'1'},sc_speed); // 80 - 50
+                $('#event-list').delay(500).stop().animate({'opacity':'1'},sc_speed); // 125 - 95
+            }
+            if( sc < 1400 ){
+                $('#event>.title').css({'margin-top':'5px','opacity':'0'});
+                $('#event>.subtitle').css({'margin-top':'20px','opacity':'0'});
+                $('#event-menu').css({'margin-top':'80px','opacity':'0'});
+                $('#event-list').css({'opacity':'0'});
+            }
+            /////////////////////////////////
+            if( sc >= 2900 ){ // event 보이기
+                $('#support>.title').stop().animate({'margin-top':'0','opacity':'1'},sc_speed); // 5 - 0
+                $('#support>.subtitle').stop().animate({'margin-top':'15px','opacity':'1'},sc_speed); // 20 - 15
+                $('#support-box').delay(300).stop().animate({'margin-top':'45px','opacity':'1'},sc_speed); // 70 - 45
+            }
+            if( sc < 2700 ){
+                $('#support>.title').css({'margin-top':'5px','opacity':'0'});
+                $('#support>.subtitle').css({'margin-top':'20px','opacity':'0'});
+                $('#support-box').css({'margin-top':'70px','opacity':'0'});
+            }
+        });
+        /* scroll end */
+
+    }); //전체괄호
+</script>
+<style>
+    * { margin: 0; padding: 0; list-style: none; text-decoration: none; color: inherit; }
+    #sc { font-size: 60px; padding: 20px; background-color: red; color: #fff; position: fixed; top: 0; left: 0; z-index: 9999; display: none; }
+    body,html { height: 100%; }
+    /* header */
+    header { width: 100%; height: 60px; padding: 0 20px; box-sizing: border-box; background-color: transparent; position: fixed; top: 0; left: 0; z-index: 999; transition: 0.2s; display: none; }
+    #logo { float: left; width: 28px; margin-top: 10px; cursor: pointer; position: relative; z-index: 1000; }
+    #logo>img { width: 100%; }
+    #header-icon { float: right; height: 22px; margin-top: 17px; overflow: hidden; }
+    #header-icon>li { float: left; width: 21px; height: 21px; margin-left: 20px; cursor: pointer; }
+    #header-icon>li>img { height: 100%; }
+    #header-icon>li:nth-child(2) { position: relative; z-index: 1001; }
+    #header-icon>li:nth-child(2)>img { margin-top: 1px; }
+    #mobile-bt { width: 21px; height: 21px; margin-top: 1px; position: relative; z-index: 1002; }
+    #mobile-bt>li { width: 21px; height: 2px; background-color: #fff; transition: 0.2s; position: absolute; left: 0; }
+    #mobile-bt>li:nth-child(1) { top: 2px; transform-origin: 0% 50%; }
+    #mobile-bt>li:nth-child(2) { top: 0; bottom: 0; margin: auto; }
+    #mobile-bt>li:nth-child(3) { bottom: 1px; transform-origin: 0% 50%; }
+    #mobile-bg { width: 100%; height: 100vh; background-color: #000; position: absolute; top: 0; left: -100%; z-index: 999; }
+    .mobile-menu-list { width: 100%; padding: 90px 30px; box-sizing: border-box; }
+    .mobile-menu-list>li { width: 100%; line-height: 46px; font-size: 16px; font-weight: 700; color: #fff; cursor: pointer; text-align: right; }
+    /* header end */
+    /* header2 */
+    .header2 { width: 100%; height: 90px; padding: 0 60px; box-sizing: border-box; background-color: transparent; position: fixed; top: 0; left: 0; z-index: 999; }
+    .pc-logo { width: 43px; height: 42px; margin-top: 24px; float: left; cursor: pointer; }
+    .pc-logo>img { width: 100%; }
+    .hd2-icon-box { float: right; width: 80px; height: 22px; margin-top: 34px; overflow: hidden; position: relative; }
+    #my-icon { float: left; cursor: pointer; }
+    .hd2-icon-box>span { display: inline-block; width: 1px; height: 17px; background-color: rgba(255,255,255,0.5); position: absolute; right: 0; left: 0; top: 0; bottom: 0; margin: auto; }
+    #search-icon { float: right; cursor: pointer; }
+    .hd2-menu { width: 70%; height: 24px; position: absolute; top: 0; bottom: 0; right: 0; left: 0; margin: auto; text-align: center; }
+    .hd2-menu>li { display: inline-block; height: 24px; margin: 0 20px; padding: 0 5px; position: relative; }
+    .hd2-menu>li>p { font-size: 18px; color: #fff; cursor: pointer; }
+    .hd2-menu>li::after { display: inline-block; content: ''; width: 0%; height: 3px; background-color: #e75300; position: absolute; bottom: -7px; left: 0; transition: 0.3s; }
+    .hd2-menu>li:hover::after { width: 100%; }
+    .hd2-submenu { width: auto; padding: 48px 0 20px; background-color: #000; position: absolute; top: 24px; left: -18px; display: none; }
+    .hd2-submenu>li { width: auto; height: 40px; padding: 0 25px; line-height: 40px; text-align: left; white-space: nowrap; cursor: pointer; }
+    .hd2-submenu>li>p { font-size: 16px; color: #fff; transition: 0.2s; }
+    .hd2-menu>li:hover>.hd2-submenu { display: block; }
+    .hd2-submenu>li>p:hover { opacity: 0.7; }
+    /* header2 end */
+    /* main slide */
+    #main-slide { width: 100%; height: 100%; background-color: #000; position: relative; }
+    #main-slide-box { width: 100%; height: 100%; }
+    #main-slide-box>li { width: 100%; height: 100%; position: absolute; }
+    #main-slide-box>li:nth-child(1) { background: url(imges/img_main72_sjcn.jpg) 60% 0 no-repeat; background-size: auto 74%; }
+    #main-slide-text { position: absolute; bottom: 80px; left: 20px; background-color: #000; text-align: left; }
+    #main-slide-text>h2 { font-size: 44px; color: #fff; letter-spacing: -1px; line-height: 55px; }
+    #main-slide-text>h4 { font-size: 24px; color: #fff; opacity: 0.5; margin-top: 20px; }
+    #main-slide-text>p { font-size: 14px; color: #fff; opacity: 0.5; margin-top: 30px; }
+    #main-slide-text>h5 { font-size: 14px; color: #e75300; margin-top: 35px; cursor: pointer; float: left; }
+    #main-slide-text>h5>span { display: inline-block; width: 28px; height: 8px; background: url(icons/arrow1.png) right center no-repeat; transition: 0.3s; }
+    #main-slide-text>h5:hover>span { width: 36px; }
+    /* main slide end */
+    /* magazine */
+    #magazine { width: 100%; height: 739px; box-sizing: border-box; padding: 60px 20px; text-align: center; overflow: hidden; }
+    .title { font-size: 35px; text-align: left; color: #03010f; }
+    .title>span { display: inline-block; width: 7px; height: 7px; border-radius: 7px; margin-left: 5px; background-color: #e75300; }
+    .subtitle { font-size: 14px; color: #6f6f75; margin-top: 15px; text-align: left; }
+    #magazine-slide { width: 876px; height: 400px; margin-top: 70px; }
+    #magazine-slide>li { float: left; margin-right: 16px; width: 276px; height: 400px; overflow: hidden; position: relative; box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2); cursor: pointer; }
+    .play-bt { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fff; box-sizing: border-box; position: absolute; top: 20px; left: 20px; background: url(icons/ico_cate_video.png) -3px center no-repeat; background-size: 150px; }
+    .magazine-imgbox { width: 100%; height: 100%; transition: 0.3s; }
+    .magazine-imgbox:hover { opacity: 0.85; }
+    #magazine-slide>li:nth-child(1)>.magazine-imgbox { background: url(imges/20220307_01_thumb.jpg) center top no-repeat; background-size: auto 100%; }
+    #magazine-slide>li:nth-child(2)>.magazine-imgbox { background: url(imges/20220228_01_thumb.jpg) center top no-repeat; background-size: auto 100%; }
+    #magazine-slide>li:nth-child(3)>.magazine-imgbox { background: url(imges/20220218_01_thumb.jpg) center top no-repeat; background-size: auto 100%; }
+    .magazine-textbox { text-align: left; width: 100%; height: 120px; padding: 20px 23px; box-sizing: border-box; background-color: #2b2a32; position: absolute; bottom: 0; left: 0; }
+    .magazine-textbox>h3 { font-size: 14px; font-weight: 400; color: #999; }
+    .magazine-textbox>h4 { font-size: 16px; font-weight: 400; color: #fff; margin-top: 15px; line-height: 26px; }
+    .magazine-textbox>h4>span { display: inline-block; width: 9px; height: 15px; background: url(icons/arrow2.png) center no-repeat; }
+    #magazine-slide>li:nth-child(2)>.magazine-textbox { background-color: #fff; color: #03010f; }
+    #magazine-slide>li:nth-child(2)>.magazine-textbox>h3 { color: #03010f; }
+    #magazine-slide>li:nth-child(2)>.magazine-textbox>h4 { color: #03010f; }
+    #magazine-slide>li:nth-child(2)>.magazine-textbox>h4>span { background: url(icons/arrow2-1.png) center no-repeat; }
+    #magazine-more { display: inline-block; font-size: 14px; color: #e75300; margin-top: 40px; position: relative; cursor: pointer; }
+    #magazine-more>span { display: inline-block; width: 28px; height: 8px; background: url(icons/arrow1.png) right center no-repeat; transition: 0.3s; position: absolute; top: 0; bottom: 0; margin: auto; left: 160px; }
+    #magazine-more:hover>span { width: 36px; }
+    /* magazine end */
+    /* video */
+    #video-contents { width: 100%; height: 744px; padding: 60px 20px; margin-top: 20px; box-sizing: border-box; background-color: #333335; text-align: center; overflow: hidden; }
+    #video-contents>.title { color: #fff; margin-top: 5px; opacity: 0; }
+    #video-contents>.subtitle { color: #fff; margin-top: 15px; opacity: 0; }
+    #video-box { height: 25.611vw; margin: auto; margin-top: 80px; position: relative; overflow: hidden; opacity: 0; }
+    #video-slide { width: 500%; height: 363px; position: absolute; top: 0; left: 0; }
+    #video-slide>li { width: 20%; height: 363px; float: left; position: relative; cursor: pointer; }
+    #video-slide>li::after { display: inline-block; content:''; width: 60px; height: 60px; background: url(icons/play-btn.png) center no-repeat; position: absolute; top: 0; bottom: 0; right: 0; left: 0; margin: auto; }
+    #video-slide>li:nth-child(1) { background: url(imges/115_jl2b.jpg) center no-repeat; background-size: cover; }
+    #video-slide>li:nth-child(2) { background: url(imges/113_h380.jpg) center no-repeat; background-size: cover; }
+    #video-slide>li:nth-child(3) { background: url(imges/113_b9ec.jpg) center no-repeat; background-size: cover; }
+    #video-slide>li:nth-child(4) { background: url(imges/112_obi2.jpg) center no-repeat; background-size: cover; }
+    #video-slide>li:nth-child(5) { background: url(imges/112_m38u.jpg) center no-repeat; background-size: cover; }
+    #video-slide>li>img { width: 100%; }
+    #video-slidebt { text-align: center; margin-top: 30px; }
+    #video-slidebt>li { display: inline-block; cursor: pointer; margin: 0 -1px; }
+    #video-more { display: inline-block; font-size: 14px; color: #e75300; margin-top: 15px; position: relative; cursor: pointer; }
+    #video-more>span { display: inline-block; width: 28px; height: 8px; background: url(icons/arrow1.png) right center no-repeat; transition: 0.3s; position: absolute; top: 0; bottom: 0; margin: auto; left: 210px; }
+    #video-more:hover>span { width: 36px; }
+    /* video end */
+    /* event */
+    #event { width: 100%; padding: 70px 20px; box-sizing: border-box; background-color: #f1f5f9; overflow: hidden; }
+    #event>.title { margin-top: 5px; opacity: 0; }
+    #event>.title>.subtitle { margin-top: 20px; opacity: 0; }
+    #event-menu { margin-top: 80px; text-align: center; }
+    #event-menu>li { float: left; padding-right: 2px; margin-right: 20px; font-size: 18px; color: #6f6f75; letter-spacing: -0.6px; position: relative; cursor: pointer; }
+    #event-menu>li:nth-child(1) { color: #03010f; font-weight: 900; }
+    .event-menu-bar { width: 0%; height: 2px; background-color: #e75300; position: absolute; left: 0; bottom: -3px; transition: 0.3s; }
+    #event-menu>li:nth-child(1)>.event-menu-bar { display: block; width: 100%; }
+    #event-list { width: 100%; margin-top: 50px; overflow: hidden; }
+    #event-list>li { float: left; width: 100%; overflow: hidden; margin-top: 20px; cursor: pointer; }
+    .event-list-imgbox { width: 46.34%; height: 17.567vw; float: left; }
+    #event-list>li:nth-child(1)>.event-list-imgbox { background: url(imges/event-listimg1.jpg) center no-repeat; background-size: cover; }
+    #event-list>li:nth-child(2)>.event-list-imgbox { background: url(imges/event-listimg2.jpg) center no-repeat; background-size: cover; }
+    #event-list>li:nth-child(3)>.event-list-imgbox { background: url(imges/event-listimg3.jpg) center no-repeat; background-size: cover; }
+    #event-list>li:nth-child(4)>.event-list-imgbox { background: url(imges/event-listimg4.jpg) center no-repeat; background-size: cover; }
+    .event-list-imgbox:hover { opacity: 0.85; }
+    .event-list-textbox { width: 53.65%; height: 17.567vw; padding: 15px 20px; background-color: #fff; float: left; border: 1px solid #d5d4d9; box-sizing: border-box; }
+    .event-list-textbox>h4 { width: 100%; height: 45px; font-size: 16px; font-weight: 700; color: #03010f; overflow: hidden; text-overflow: ellipsis; display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .event-list-textbox>p { font-size: 12px; color: #6f6f75; margin-top: 10px; }
+    #seminar-list { width: 100%; margin-top: 50px; display: none; overflow: hidden; }
+    #seminar-list>li { float: left; width: 100%; overflow: hidden; margin-top: 20px; cursor: pointer; }
+    .seminar-list-imgbox { width: 46.34%; height: 17.567vw; float: left; }
+    #seminar-list>li:nth-child(1)>.seminar-list-imgbox { background: url(imges/seminar-listimg1.jpg) center no-repeat; background-size: cover; }
+    #seminar-list>li:nth-child(2)>.seminar-list-imgbox { background: url(imges/seminar-listimg2.jpg) center no-repeat; background-size: cover; }
+    #seminar-list>li:nth-child(3)>.seminar-list-imgbox { background: url(imges/seminar-listimg3.jpg) center no-repeat; background-size: cover; }
+    .seminar-list-imgbox:hover { opacity: 0.85; }
+    .seminar-list-textbox { width: 53.65%; height: 17.567vw; padding: 15px 20px; background-color: #2b2a32; float: left; border: solid #d5d4d9; border-width: 1px 1px 1px 0; box-sizing: border-box; }
+    .seminar-list-textbox>h4 { width: 100%; height: 45px; margin-top: 7px; font-size: 16px; font-weight: 700; color: #fff; overflow: hidden; text-overflow: ellipsis; display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .seminar-list-textbox>p { font-size: 12px; color: #999; margin-top: 10px; }
+    .seminar-label { width: 69px; height: 25px; line-height: 25px; font-size: 12px; color: #fff; background-color: #e75300; text-align: center; }
+    #event-more { width: 100%; height: 56px; margin: auto; margin-top: 25px; background-color: #e75300; text-align: center; position: relative; }
+    #event-more::after { display: inline-block; content:''; width: 1px; height: 18px; background-color: #f5ba99; position: absolute; top: 0; bottom: 0; right: 0; left: 0; margin: auto; }
+    #event-morebt { width: 100%; height: 56px; line-height: 56px; font-size: 14px; color: #fff; overflow: hidden; }
+    #event-morebt>li { width: 50%; float: left; cursor: pointer; }
+    #event-morebt>li>span { position: relative; }
+    #event-morebt>li>span::after { display: inline-block; content:''; width: 7px; height: 11px; background: url(icons/arrow2.png) center no-repeat; background-size: cover; position: absolute; top: 0; bottom: 0; margin: auto; right: -11px; transition: 0.2s; }
+    #event-morebt>li:hover ::after { right: -22px; }
+    /* event end */
+    /* banner */
+    #banner { width: 100%; }
+    #banner-box>li { width: 100%; height: 20.810vw; max-height: 240px; padding: 10px; box-sizing: border-box; position: relative; cursor: pointer; }
+    .banner-innerbox { width: 100%; height: 100%; padding: 25px 20px; border: 1px solid rgba(255,255,255,0.2); box-sizing: border-box; }
+    .banner-innerbox>h5 { font-size: 15px; font-weight: 400; color: #b8b8b8; }
+    .banner-innerbox>h4 { font-size: 36px; font-weight: 700; color: #fff; }
+    #banner-box>li:nth-child(1) { background: url(imges/banner1.jpg) center no-repeat; background-size: cover; }
+    #banner-box>li:nth-child(2) { background: url(imges/banner2.jpg) center no-repeat; background-size: cover; }
+    .banner-more { display: inline-block; float: right; margin-right: 30px; margin-top: 10px; font-size: 14px; color: #e75300; position: relative; cursor: pointer; }
+    .banner-more>span { display: inline-block; width: 28px; height: 8px; background: url(icons/arrow1.png) right center no-repeat; transition: 0.3s; position: absolute; top: 0; bottom: 0; margin: auto; left: 80px; }
+    .banner-more:hover>span { width: 36px; }
+    /* banner end */
+    /* support */
+    #support { width: 100%; padding: 70px 20px; box-sizing: border-box; background-color: #f1f5f9; overflow: hidden; }
+    #support>.title { margin-top: 5px; opacity: 0; }
+    #support>.title>.subtitle { margin-top: 20px; opacity: 0; }
+    #support-box { margin-top: 70px; overflow: hidden; }
+    #support-box>li { float: left; width: 47.93%; height: 90px; margin: 2%; padding: 15px 4.95%; box-sizing: border-box; font-size: 15px; color: #fff; cursor: pointer; position: relative; }
+    #support-box>li:nth-child(1) { background-color: #e75300; margin-bottom: 4.3%; }
+    #support-box>li:nth-child(2) { background-color: #6f6f75; margin-bottom: 4.3%; }
+    #support-box>li:nth-child(3) { background-color: #03010f; }
+    #support-box>li:nth-child(4) { background-color: #fff; color: #03010f; }
+    #support-box>li>h4 { display: inline-block; font-size: 16px; font-weight: 400; position: relative; }
+    #support-box>li>h4>span { display: inline-block; width: 9px; height: 15px; background: url(icons/arrow2.png) center no-repeat; position: absolute; top: 0; bottom: 0; margin: auto; right: -15px; transition: 0.3s; }
+    #support-box>li:nth-child(4)>h4>span { background: url(icons/arrow2-1.png) center no-repeat; }
+    #support-box>li:hover span { right: -22px; }
+    #support-box>li:hover>.support-icon-box { right: 30px; }
+    .support-icon-box { width: 30px; height: 30px; position: absolute; right: 19px; bottom: 19px; transition: 0.3s; }
+    #support-box>li:nth-child(1)>.support-icon-box { background: url(icons/ico_guide.png) left top no-repeat; background-size: 80px; }
+    #support-box>li:nth-child(2)>.support-icon-box { background: url(icons/ico_guide.png) right top no-repeat; background-size: 80px; }
+    #support-box>li:nth-child(3)>.support-icon-box { background: url(icons/ico_guide.png) left bottom no-repeat; background-size: 80px; }
+    #support-box>li:nth-child(4)>.support-icon-box { background: url(icons/ico_guide.png) right bottom no-repeat; background-size: 80px; }
+    /* support end */
+    /* footer */
+    footer { width: 100%;  padding: 40px 20px; box-sizing: border-box; background-color: #03010f; }
+    #ft-menu { text-align: center; }
+    #ft-menu>li { display: inline-block; margin: 0 10px; font-size: 14px; color: #fff; vertical-align: top; cursor: pointer; }
+    #ft-menu>li:nth-child(2) { color: #e75300; }
+    #ft-textbox { text-align: center; line-height: 19px; margin-top: 30px; }
+    #ft-textbox>p { font-size: 12px; color: #6f6f75; }
+    #ft-textbox>p>span { color: #fff; }
+    #ft-copy { margin-top: 35px; letter-spacing: 0; }
+    #ft-sns { text-align: center; overflow: hidden; margin-top: 40px; }
+    #ft-sns>li { width: 45px; height: 45px; margin: 0 0.4px; display: inline-block; vertical-align: top; }
+    #ft-sns>li:nth-child(1) { background: url(icons/ico_sns_facebook.png) 0 0 no-repeat; background-size: 100px auto; }
+    #ft-sns>li:nth-child(2) { background: url(icons/ico_sns_instar.png) 0 0 no-repeat; background-size: 100px auto; }
+    #ft-sns>li:nth-child(3) { background: url(icons/ico_sns_youtube.png) 0 0 no-repeat; background-size: 100px auto; }
+    #ft-sns>li:nth-child(4) { background: url(icons/ico_sns_blog.png) 0 0 no-repeat; background-size: 100px auto; }
+    #ft-sns>li:nth-child(5) { background: url(icons/ico_sns_post.png) 0 0 no-repeat; background-size: 100px auto; }
+    #ft-sns>li:nth-child(6) { background: url(icons/ico_sns_band.png) 0 0 no-repeat; background-size: 100px auto; }
+    #family-site { width: 100%; height: 48px; line-height: 48px; margin-top: 36px; text-align: center; background-color: #6f6f75; color: #fff; font-size: 14px; cursor: pointer; position: relative; transition: 0.2s; }
+    #family-site>img { position: absolute; top: 0; bottom: 0; margin: auto; right: 15px; transition: 0.3s; }
+    #ft-family-sitebox { width: 100%; height: 169px; padding: 11px 15px 0; box-sizing: border-box; background-color: #2b2f3a; position: absolute; bottom: 48px; left: 0; text-align: left; font-size: 14px; color: #fff; display: none; }
+    #ft-family-sitebox>ul { height: 100%; box-sizing: border-box; border-bottom: 1px solid #6b6e75; overflow: hidden; }
+    #ft-family-sitebox>ul>li { line-height: 28.5px; }
+    #ft-family-sitebox>ul>li:hover { opacity: 0.6; }
+    #ft-linkbox { width: 100%; height: 48px; line-height: 48px; margin-top: 4px; text-align: center; background-color: #6f6f75; color: #fff; font-size: 14px; cursor: pointer; position: relative; }
+    #ft-linkbox>img { position: absolute; top: 0; bottom: 0; margin: auto; right: 15px; }
+    /* footer end */
+</style>
+<style>
+
+    /* 미디어쿼리 */
+    @media all and (min-width:320px){ /* 320~1000 모바일 */ 
+        header { display: block; }
+        .header2 { display: none; }
+        #main-slide-box>li { background: url(imges/img_main72_sjcn.jpg) 60% 0 no-repeat; background-size: auto 74%; }
+        #video-box { height: 50.611vw; }
+        #seminar-list>li { width: 29.332%; margin: 2%; }
+        .banner-innerbox { padding: 50px 20px; }
+        .banner-more { float: none; }
+        #support-box>li { width: 46%; height: 90px; margin: 2%; }
+        #support-box>li>h4 { font-size: 16px; }
+        .seminar-list-imgbox { width: 46.34%; }
+        .seminar-list-textbox { width: 53.65%; }
+        #seminar-list>li { width: 100%; margin: 2%; }
+    }
+
+    @media all and (min-width:1000px){ /* 1000~1440 태블릿 */ 
+        header { display: none; }
+        .header2 { display: block; }
+        #main-slide-box>li:nth-child(1) { background: url(imges/img_main72_sjcn.jpg) 55% 0 no-repeat; background-size: cover; }
+        #main-slide-text { bottom: 300px; left: 30px; }
+        #main-slide-text>h2 { font-size: 74px; line-height: 90px; }
+        #main-slide-text>p { font-size: 18px; }
+        #main-slide-text>h5 { font-size: 18px; }
+        #magazine { padding: 110px 30px; }
+        .title { font-size: 52px; text-align: center; } 
+        .title>span { width: 12px; height: 12px; }
+        .subtitle { text-align: center; }
+        #magazine-slide { width: 100%; }
+        #magazine-slide>li { width: 29.332%; margin: 0 2%; }
+        #video-contents { margin-top: 120px; }
+        #video-box { width: 45%; height: 25.611vw; }
+        #event-menu>li { display: inline-block; float: none; }
+        #event-list>li { width: 29.332%; margin: 2%; }
+        .event-list-imgbox { width: 100%; }
+        .event-list-textbox { width: 100%; height: 8.567vw; }
+        #event-more { width: 50%; }
+        .seminar-list-imgbox { width: 100%; }
+        .seminar-list-textbox { width: 100%; height: 8.567vw; }
+        #seminar-list>li { width: 29.332%; margin: 2%; }
+        .banner-innerbox { padding: 50px 20px; }
+        .banner-more { float: none; }
+        #support-box>li { width: 21%; height: 150px; margin: 0 2%; }
+        #support-box>li>h4 { font-size: 20px; }
+        #ft-menu { float: left; }
+        #ft-textbox { text-align: left; padding-left: 10px; }
+        #ft-textbox>p { font-size: 14px; }
+        #family-site { width: 23%; float: right; margin-top: -312px; margin-right: 22.5vw; }
+        #ft-linkbox { width: 23%; float: right; margin-top: -312px; }
+    }   
+
+    @media all and (min-width:1440px){ /* 1440 pc */ 
+        header { display: none; }
+        .header2 { display: block; }
+        #main-slide-box>li:nth-child(1) { background: url(imges/img_main72_sjcn.jpg) 40% 0 no-repeat; background-size: cover; }
+        #main-slide-text { bottom: 300px; left: 180px; }
+        #main-slide-text>h2 { font-size: 74px; line-height: 90px; }
+        #main-slide-text>p { font-size: 18px; }
+        #main-slide-text>h5 { font-size: 18px; }
+        #video-box { width: 45%; height: 20.611vw; }
+    }
+
+</style>
+</head>
+<body>
+    <h1 id="sc">0</h1>
+    <!-- header -->
+    <header>
+        <div id="mobile-bg">
+            <ul class="mobile-menu-list">
+                <li>매거진</li>
+                <li>프로</li>
+                <li>제품정보</li>
+                <li>이벤트</li>
+                <li>세미나</li>
+                <li>아카데미</li>
+                <li>제품 비교하기</li>
+            </ul>
+        </div>
+        <h1 id="logo"><img src="icons/logo.png" alt=""></h1>
+        <ul id="header-icon">
+            <li><img src="icons/header-icon1.png" alt=""></li>
+            <li><img src="icons/header-icon2.png" alt=""></li>
+            <li>
+                <ul id="mobile-bt">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <div class="header2">
+        <h1 class="pc-logo"><img src="icons/logo.png" alt=""></h1>
+        <div class="hd2-icon-box">
+            <img src="icons/header-icon1.png" alt="" id="my-icon"> 
+            <span></span>
+            <img src="icons/header-icon2.png" alt="" id="search-icon">
+        </div>
+        <ul class="hd2-menu">
+            <li>
+                <p>매거진</p>
+            </li>
+            <li>
+                <p>프로</p>
+                <ul class="hd2-submenu">
+                    <li><p>해외 프로작가</p></li>
+                    <li><p>국내 프로작가</p></li>
+                    <li><p>프로서포트(SIPS) / 프로 컨설팅</p></li>
+                </ul>
+            </li>
+            <li>
+                <p>제품정보</p>
+                <ul class="hd2-submenu">
+                    <li><p>풀프레임</p></li>
+                    <li><p>APS-C</p></li>
+                    <li><p>렌즈</p></li>
+                    <li><p>RX & ZV</p></li>
+                    <li><p>액세서리</p></li>
+                </ul>
+            </li>
+            <li>
+                <p>이벤트</p>
+                <ul class="hd2-submenu">
+                    <li><p>진행중인 이벤트</p></li>
+                    <li><p>종료된 이벤트</p></li>
+                    <li><p>당첨자 발표</p></li>
+                </ul>
+            </li>
+            <li>
+                <p>세미나</p>
+                <ul class="hd2-submenu">
+                    <li><p>진행중인 세미나</p></li>
+                    <li><p>종료된 세미나</p></li>
+                    <li><p>당첨자 발표</p></li>
+                </ul>
+            </li>
+            <li>
+                <p>아카데미</p>
+                <ul class="hd2-submenu">
+                    <li><p>아카데미</p></li>
+                    <li><p>오프라인 아카데미</p></li>
+                    <li><p>온라인 아카데미</p></li>
+                    <li><p>아카데미 소개</p></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!-- header end -->
+    <!-- main slide -->
+    <div id="main-slide">
+        <ul id="main-slide-box">
+            <li></li>
+        </ul>
+        <div id="main-slide-text">
+            <h2>α7 IV<br>디지털 언패킹</h2>
+            <h4>표준의 초격차</h4>
+            <p>α7 Ⅳ를 디지털 언패킹에서 자세하게 만나보세요.</p>
+            <h5>자세히보기 <span></span> </h5>
+        </div>
+    </div>
+    <!-- main slide end -->
+    <!-- magazine -->
+    <div id="magazine">
+        <h2 class="title">MAGAZINE<span></span></h2>
+        <p class="subtitle">소니 카메라 제품의 새로운 소식과 프로들의 사진 촬영 노하우와 제품 관련 최신 뉴스를 지금 확인해 보세요!</p>
+        <ul id="magazine-slide">
+            <li>
+                <div class="magazine-imgbox"></div>
+                <div class="play-bt"></div>
+                <div class="magazine-textbox">
+                    <h3>2022.03.04</h3>
+                    <h4>[소니코리아] What's in my Camera ba... <span></span></h4>
+                </div>
+            </li>
+            <li>
+                <div class="magazine-imgbox"></div>
+                <div class="play-bt"></div>
+                <div class="magazine-textbox">
+                    <h3>2022.02.25</h3>
+                    <h4>[소니코리아] What's in my Camera ba... <span></span></h4>
+                </div>
+            </li>
+            <li>
+                <div class="magazine-imgbox"></div>
+                <div class="play-bt"></div>
+                <div class="magazine-textbox">
+                    <h3>2022.02.18</h3>
+                    <h4>[소니코리아] What's in my Camera ba... <span></span></h4>
+                </div>
+            </li>
+        </ul>
+        <h3 id="magazine-more">더 많은 매거진 보러가기<span></span></h3>
+    </div>
+    <!-- magazine end -->
+    <!-- video -->
+    <div id="video-contents">
+        <h2 class="title">VIDEO CONTENTS<span></span></h2>
+        <p class="subtitle">프로들이 선택한 카메라!<br>
+            소니 카메라와 함께 사진 예술 창작의 더 깊은 세계로 여러분을 초대합니다!</p>
+        <div id="video-box">
+            <ul id="video-slide">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <ul id="video-slidebt">
+            <li><img src="icons/video-slidebt.png" alt=""></li>
+            <li><img src="icons/video-slidebt1.png" alt=""></li>
+            <li><img src="icons/video-slidebt1.png" alt=""></li>
+            <li><img src="icons/video-slidebt1.png" alt=""></li>
+            <li><img src="icons/video-slidebt1.png" alt=""></li>
+        </ul>
+        <h3 id="video-more">더 많은 비디오 컨텐츠 보러가기<span></span></h3>
+    </div>
+    <!-- video end -->
+    <!-- event -->
+    <div id="event">
+        <h2 class="title">EVENT & SEMINAR<span></span></h2>
+        <p class="subtitle">소니에서 준비한 이벤트로 더 많은 혜택을!<br>
+            세미나를 통해 소니 제품과 함께 하는 프로들의 사진 노하우를 배워보세요!</p>
+        <ul id="event-menu">
+            <li>EVENT
+                <div class="event-menu-bar"></div>
+            </li>
+            <li>SEMINAR
+                <div class="event-menu-bar"></div>
+            </li>
+        </ul>
+        <ul id="event-list">
+            <li>
+                <div class="event-list-imgbox"></div>
+                <div class="event-list-textbox">
+                    <h4>[이벤트] 소니 α 풀프레임 카메라 무상 수리 서비스 1+1 연장 프로모션</h4>
+                    <p>2022.01.01 ~ 2022.12.31</p>
+                </div>
+            </li>
+            <li>
+                <div class="event-list-imgbox"></div>
+                <div class="event-list-textbox">
+                    <h4>[이벤트] Sony PRO Consulting</h4>
+                    <p>2021.10.20 ~ 2022.12.31</p>
+                </div>
+            </li>
+            <li>
+                <div class="event-list-imgbox"></div>
+                <div class="event-list-textbox">
+                    <h4>[이벤트] 프딩과 함께하는 프로페셔널 웨딩 작가 컨설팅 서비스</h4>
+                    <p>2021.07.08 ~ 2022.09.30</p>
+                </div>
+            </li>
+            <li>
+                <div class="event-list-imgbox"></div>
+                <div class="event-list-textbox">
+                    <h4>[이벤트] α 랜선 세미나</h4>
+                    <p>2020.08.28 ~ 재고 소진시</p>
+                </div>
+            </li>
+        </ul>
+        <ul id="seminar-list">
+            <li>
+                <div class="seminar-list-imgbox"></div>
+                <div class="seminar-list-textbox">
+                    <div class="seminar-label">신청가능</div>
+                    <h4>α 랜선 세미나 - 한스포토 이환수 작가와 함께하는 이국적인 분위기의 국내 여행지</h4>
+                    <p>2022.03.08 ~ 2022.03.11</p>
+                </div>
+            </li>
+            <li>
+                <div class="seminar-list-imgbox"></div>
+                <div class="seminar-list-textbox">
+                    <div class="seminar-label">신청가능</div>
+                    <h4>소니센터 강남 Photo Salon 10기 - 공간미학(空間美學)</h4>
+                    <p>2022.02.28 ~ 2022.03.31</p>
+                </div>
+            </li>
+            <li>
+                <div class="seminar-list-imgbox"></div>
+                <div class="seminar-list-textbox">
+                    <div class="seminar-label">신청가능</div>
+                    <h4>소니센터 강남 Photo Salon 8기 I'm Creator Season 2 - 푸우 작가와 게스트가 함께하는 영상 촬영 이야기 Part Ⅴ</h4>
+                    <p>2022.02.25 ~ 2022.03.20</p>
+                </div>
+            </li>
+        </ul>
+        <div id="event-more">
+            <ul id="event-morebt">
+                <li><span>이벤트 보러가기</span></li>
+                <li><span>세미나 보러가기</span></li>
+            </ul>
+        </div>
+    </div>
+    <!-- event end -->
+    <!-- banner -->
+    <div id="banner">
+        <ul id="banner-box">
+            <li>
+                <div class="banner-innerbox">
+                    <h5>원핸드 컴팩트 풀프레임</h4>
+                    <h4>α7C</h3>
+                    <h3 class="banner-more">자세히 보기<span></span></h3>
+                </div>
+            </li>
+            <li>
+                <div class="banner-innerbox">
+                    <h5>미래형 렌즈의 완성</h4>
+                    <h4>G Master</h3>
+                    <h3 class="banner-more">자세히 보기<span></span></h3>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- banner end -->
+    <!-- support -->
+    <div id="support">
+        <h2 class="title">SUPPORT<span></span></h2>
+        <p class="subtitle">소니 고객지원에 오신 것을 환영합니다.</p>
+        <ul id="support-box">
+            <li>
+                <h4>정품등록<span></span></h4>
+                <div class="support-icon-box"></div>
+            </li>
+            <li>
+                <h4>A/S 안내<span></span></h4>
+                <div class="support-icon-box"></div>
+            </li>
+            <li>
+                <h4>제품지원<span></span></h4>
+                <div class="support-icon-box"></div>
+            </li>
+            <li>
+                <h4>구매처 안내<span></span></h4>
+                <div class="support-icon-box"></div>
+            </li>
+        </ul>
+    </div>
+    <!-- support end -->
+    <!-- footer -->
+    <footer>
+        <ul id="ft-menu">
+            <li>이용약관</li>
+            <li>개인정보처리방침</li>
+            <li>상담안내</li>
+            <li>사이트맵</li>
+        </ul>
+        <div id="ft-textbox">
+            <p>사업장주소 : 서울특별시 영등포구 국제금융로 10 원아이에프씨 24F<br>
+            사업자등록번호 : 106-81-23810<br>
+            통신판매번호 2012-서울영등포-1038 소니코리아(주)<br>
+            대표이사 : Okura Kikuo<br>
+            개인정보관리책임자 : Okura Kikuo<br>
+            TEL : 소니코리아 고객 센터 1588-0911<br>
+            E-MAIL : <span>cshelp@sony.co.kr</span></p>
+            <p id="ft-copy">Copyright © Sony Korea Corporation. All rights reserved.</p>
+        </div>
+        <ul id="ft-sns">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div id="family-site">Sony Family 사이트
+            <img src="icons/ft-arrow.png" alt="">
+            <div id="ft-family-sitebox">
+                <ul>
+                    <li>소니 코리아</li>
+                    <li>소니스토어 온라인</li>
+                    <li>소니코리아 고객지원</li>
+                    <li>소니 방송/업무용 솔루션</li>
+                    <li>소니 방송/업무용 솔루션 고객지원</li>
+                </ul>
+            </div>
+        </div>
+        <div id="ft-linkbox">Sony Global Home 바로가기
+            <img src="icons/ft-arrow2.png" alt="">
+        </div>
+    </footer>
+    <!-- footer end -->
+</body>
+</html>
